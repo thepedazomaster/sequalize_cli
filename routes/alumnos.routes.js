@@ -1,12 +1,22 @@
 import { Router } from "express";
-import { getAlumnos } from "../controllers/alumnos.controller.js";
+import {
+  getAlumnos,
+  createAlumno,
+  updateAlumno,
+  getAlumno,
+  deleteAlumnos,
+} from "../controllers/alumnos.controller.js";
 
 const router = Router();
 
 router.get("/alumnos", getAlumnos);
-router.get("/alumnos/:id");
-router.post("/alumnos");
-router.put("/alumnos/:id");
-router.delete("/alumnos/:id");
+
+router.post("/alumnos", createAlumno);
+
+router.get("/alumnos/:id", getAlumno);
+
+router.put("/alumnos/:id", updateAlumno);
+
+router.delete("/alumnos/:id", deleteAlumnos);
 
 export default router;

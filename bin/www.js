@@ -2,11 +2,12 @@
 import app from "../app.js";
 import http from "http";
 import { sequelize } from "../database/database.js";
+
 import "../models/AlumnoCursos.js";
-import "../models/Tipo_cuenta.js";
 import "../models/Profesores.js";
 import "../models/Alumnos.js";
 import "../models/Cursos.js";
+import "../models/Tipo_cuenta.js";
 /**
  * Module dependencies.
  */

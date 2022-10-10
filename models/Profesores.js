@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
-import { Tipo_cuenta } from "./Tipo_cuenta.js";
 
 export const Profesores = sequelize.define("Profesores", {
   id: {
