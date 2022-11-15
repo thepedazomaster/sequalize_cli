@@ -58,15 +58,17 @@ export const updateAlumno = async (req, resp) => {
     const { id } = req.params;
     const { fname, sname, flastname, slastname, identificacion, profe } =
       req.body;
+    const newAlumno = {
+      primer_Nombre: fname,
+      segundo_Nombre: sname,
+      primer_Apellido: flastname,
+      segundo_Apellido: slastname,
+      identificacion: identificacion,
+      id_profesor: profe,
+    };
     await Alumnos.update(
-      {
-        primer_Nombre: fname,
-        segundo_Nombre: sname,
-        primer_Apellido: flastname,
-        segundo_Apellido: slastname,
-        identificacion: identificacion,
-        id_profesor: profe,
-      },
+      { ...newAlumno },
+
       { were: { id } }
     );
     resp.send("actualizado");
