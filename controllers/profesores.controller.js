@@ -1,4 +1,27 @@
 import { Profesores } from "../models/Profesores.js";
+import bycript from "bcrypt";
+
+export const loginProf = async (req, resp) => {
+  try {
+    const { user, pass } = req.body;
+    const profesor = await Profesores.findOne({
+      where: { usuario: user },
+    });
+    if (profesor) {
+      const match = await bycript.compare(pass, profesor.contrasena);
+      if (match) {
+        return resp.json(profesor);
+      } else {
+        return resp.status(500).json({ message: "credenciales erroneas" });
+      }
+    } else {
+      return resp.status(500).json({ message: "credeciales erroneas" });
+    }
+  } catch (error) {
+    return resp.status(500).json({ message: error.message });
+  }
+};
+
 export const getProfesores = async (req, resp) => {
   try {
     const profesores = await Profesores.findAll();
@@ -17,15 +40,17 @@ export const getProfesor = async (req, resp) => {
     return resp.status(500).json({ message: error.message });
   }
 };
+
 export const createProfesor = async (req, resp) => {
   try {
     const { user, pass, email, name, acountType } = req.body;
 
-    console.log(req.body);
+    const saltRounds = 10;
+    const passHash = await bycript.hash(pass, saltRounds);
 
     const newProfesor = await Profesores.create({
       usuario: user,
-      contrasena: pass,
+      contrasena: passHash,
       email,
       nombre: name,
       idCuenta: acountType,
@@ -35,16 +60,15 @@ export const createProfesor = async (req, resp) => {
     return resp.status(500).json({ message: error.message });
   }
 };
+
 export const updateProfesor = async (req, resp) => {
   try {
     const { id } = req.params;
-    const { user, pass, email, name, acountType } = req.body;
+    const { pass, email, acountType } = req.body;
     await Profesores.update(
       {
-        usuario: user,
         contrasena: pass,
         email,
-        nombre: name,
         idCuenta: acountType,
       },
       { where: { id } }
@@ -54,6 +78,7 @@ export const updateProfesor = async (req, resp) => {
     return resp.status(500).json({ message: error.message });
   }
 };
+
 export const deleteProfesor = async (req, resp) => {
   try {
     const { id } = req.params;

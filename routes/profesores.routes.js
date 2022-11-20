@@ -4,6 +4,7 @@ import {
   deleteProfesor,
   getProfesor,
   getProfesores,
+  loginProf,
   updateProfesor,
 } from "../controllers/profesores.controller.js";
 
@@ -14,6 +15,8 @@ router.get("/profesores", getProfesores);
 router.get("/profesores/:id", getProfesor);
 
 router.post("/profesores", createProfesor);
+
+router.post("/profesoresLog", loginProf);
 
 router.put("/profesores/:id", updateProfesor);
 
