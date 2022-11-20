@@ -53,10 +53,11 @@ export const createAlumno = async (req, resp) => {
     return resp.status(500).json({ message: error.message });
   }
 };
+
 export const updateAlumno = async (req, resp) => {
   try {
     const { id } = req.params;
-    const { fname, sname, flastname, slastname, identificacion, profe } =
+    const { fname, sname, flastname, slastname, identificacion, id_profesor } =
       req.body;
     const newAlumno = {
       primer_Nombre: fname,
@@ -64,14 +65,15 @@ export const updateAlumno = async (req, resp) => {
       primer_Apellido: flastname,
       segundo_Apellido: slastname,
       identificacion: identificacion,
-      id_profesor: profe,
+      id_profesor,
     };
-    await Alumnos.update(
+
+    const result = await Alumnos.update(
       { ...newAlumno },
 
-      { were: { id } }
+      { where: { id } }
     );
-    resp.send("actualizado");
+    resp.send(result);
   } catch (error) {
     return resp.status(500).json({ message: error.message });
   }

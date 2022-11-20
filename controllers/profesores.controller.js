@@ -47,7 +47,7 @@ export const updateProfesor = async (req, resp) => {
         nombre: name,
         idCuenta: acountType,
       },
-      { were: { id } }
+      { where: { id } }
     );
     resp.send("actualizado");
   } catch (error) {
