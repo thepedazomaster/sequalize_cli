@@ -41,7 +41,7 @@ export const updateCurso = async (req, resp) => {
         codigo,
         creditos,
       },
-      { were: { id } }
+      { where: { id } }
     );
     resp.send("actualizado");
   } catch (error) {
