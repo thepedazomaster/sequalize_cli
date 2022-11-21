@@ -16,8 +16,12 @@ var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-
+app.use(
+  cors({
+    origin: "https://colegicundi.herokuapp.com",
+    optionsSuccessStatus: 200,
+  })
+);
 var allowlist = ["http://example1.com", "http://example2.com"];
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
